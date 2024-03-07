@@ -101,7 +101,7 @@ export async function createPaymentRequest(
   }
 }
 
-function binaryToString(binary: string) {
+export function binaryToString(binary: string) {
   let str = "";
   const binaryArray = binary.split(" ");
 

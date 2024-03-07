@@ -10,6 +10,7 @@ const UploadPage = () => {
     console.log("App [result]", decodedResult);
     setDecodedResults((prev) => [...prev, decodedResult]);
   };
+  console.log(decodedResults);
   return (
     <h1>
       <div className="App">

@@ -1,5 +1,18 @@
 import React from "react";
 
+function binaryToString(binary: string) {
+  let str = "";
+  const binaryArray = binary.split(" ");
+
+  for (let i = 0; i < binaryArray.length; i++) {
+    const charCode = parseInt(binaryArray[i], 2);
+    const char = String.fromCharCode(charCode);
+    str += char;
+  }
+
+  return str;
+}
+
 function filterResults(results) {
   let filteredResults = [];
   for (var i = 0; i < results.length; ++i) {
@@ -17,6 +30,8 @@ function filterResults(results) {
 
 const ResultContainerTable = ({ data }) => {
   const results = filterResults(data);
+  console.log(results);
+  //   const final = binaryToString(results);
   return (
     <table className={"Qrcode-result-table"}>
       <thead>
@@ -32,8 +47,10 @@ const ResultContainerTable = ({ data }) => {
           return (
             <tr key={i}>
               <td>{i}</td>
-              <td>{result.decodedText}</td>
-              <td>{result.result.format.formatName}</td>
+              {result.decodedText && (
+                <td>{binaryToString(result.decodedText)}</td>
+              )}
+              {/* <td>{final}</td> */}
             </tr>
           );
         })}
