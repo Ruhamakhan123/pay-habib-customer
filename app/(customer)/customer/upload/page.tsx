@@ -1,30 +1,29 @@
 "use client";
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing"; // Assuming UploadDropzone is exported from '@/lib/uploadthing'
-import React from "react";
+
+import React, { useState } from "react";
+import Html5QrcodePlugin from "@/components/Html5QrcodePlugin";
+import ResultContainerPlugin from "@/components/ResultContainerPlugin";
 
 const UploadPage = () => {
+  const [decodedResults, setDecodedResults] = useState([]);
+  const onNewScanResult = (decodedText, decodedResult) => {
+    console.log("App [result]", decodedResult);
+    setDecodedResults((prev) => [...prev, decodedResult]);
+  };
   return (
-    <div className="flex flex-col items-start justify-start mt-10 ml-10 w-full">
-      <h1 className="text-4xl font-bold">QR Scan</h1>
-      <div className="pt-10 w-full">
-        <UploadDropzone
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            // Do something with the response
-            console.log("Files: ", res);
-            alert("Upload Completed");
-          }}
-          onUploadError={(error: Error) => {
-            alert(`ERROR! ${error.message}`);
-          }}
-          onUploadBegin={(name) => {
-            // Do something once upload begins
-            console.log("Uploading: ", name);
-          }}
-          className="flex items-center justify-center "
-        />
+    <h1>
+      <div className="App">
+        <section className="App-section">
+          <Html5QrcodePlugin
+            fps={10}
+            qrbox={250}
+            disableFlip={false}
+            qrCodeSuccessCallback={onNewScanResult}
+          />
+          <ResultContainerPlugin results={decodedResults} />
+        </section>
       </div>
-    </div>
+    </h1>
   );
 };
 
