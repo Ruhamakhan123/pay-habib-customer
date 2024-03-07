@@ -3,6 +3,8 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
+import { Toaster } from "@/components/ui/sonner";
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -20,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fontSans.className}>{children}</body>
+      <body className={fontSans.className}>
+        {children}
+        <Toaster richColors />
+      </body>
     </html>
   );
 }

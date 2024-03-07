@@ -1,8 +1,14 @@
 import Navbar from "@/components/Navabr";
 import Sidebar from "@/components/Sidebar";
+import { getSession } from "@/lib/helper";
+import { redirect } from "next/navigation";
 import React from "react";
 
-function Layout({ children }: { children: React.ReactNode }) {
+async function Layout({ children }: { children: React.ReactNode }) {
+  const session = await getSession();
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <div>
       <div className="  py-5 border-b-2 ">

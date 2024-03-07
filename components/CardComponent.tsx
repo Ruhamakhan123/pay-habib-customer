@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { BadgeEuro, CheckCircle, Clock3, X } from "lucide-react";
 
-const CardComponent = () => {
+const CardComponent = ({ total, pending, rejected, succeeded }: any) => {
   return (
     <div className="flex gap-5 items-center mt-5">
       <Card className="w-full bg-cyan-100 hover:border-2 hover:border-cyan-500 transition-all duration-100">
@@ -20,11 +20,11 @@ const CardComponent = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">1,380 PKR</p>
+          <p className="text-2xl font-bold">{pending.amount} PKR</p>
         </CardContent>
         <CardFooter>
           <button className="bg-white text-cyan-500 border-2 border-cyan-500 hover:bg-cyan-500 hover:text-white rounded-full px-2 py-1">
-            234 records
+            {pending.count} records
           </button>
         </CardFooter>
       </Card>
@@ -36,11 +36,11 @@ const CardComponent = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">2,380 PKR</p>
+          <p className="text-2xl font-bold">{succeeded.amount} PKR</p>
         </CardContent>
         <CardFooter>
           <button className="bg-white text-green-500 border-2 border-green-500 hover:bg-green-500 hover:text-white rounded-full px-2 py-1">
-            234 records
+            {succeeded.count} records
           </button>
         </CardFooter>
       </Card>
@@ -53,11 +53,11 @@ const CardComponent = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">590 PKR</p>
+          <p className="text-2xl font-bold">{rejected.amount} PKR</p>
         </CardContent>
         <CardFooter>
           <button className="bg-white text-red-500 border-2 border-red-500 hover:bg-red-500 hover:text-white rounded-full px-2 py-1">
-            4 records
+            {rejected.count} records
           </button>
         </CardFooter>
       </Card>

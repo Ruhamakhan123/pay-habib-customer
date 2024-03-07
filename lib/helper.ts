@@ -29,7 +29,7 @@ export async function login(formData: FormData) {
 
     if (email && password) {
       console.log(email, password);
-      const user = await prisma.merchant.findFirst({
+      const user = await prisma.customer.findFirst({
         where: {
           email: email as string,
           password: password as string,
@@ -41,26 +41,29 @@ export async function login(formData: FormData) {
       const session = await encrypt({ userWithoutPassword, expires });
 
       // Save the session in a cookie
-      cookies().set("custom_session", session, { expires, httpOnly: true });
+      cookies().set("customer_session", session, { expires, httpOnly: true });
+      console.log("hello");
+      return true;
     }
   } catch (err) {
     console.log(err);
+    return false;
   }
 }
 
 export async function logout() {
   // Destroy the session
-  cookies().set("custom_session", "", { expires: new Date(0) });
+  cookies().set("customer_session", "", { expires: new Date(0) });
 }
 
 export async function getSession() {
-  const session = cookies().get("custom_session")?.value;
+  const session = cookies().get("customer_session")?.value;
   if (!session) return null;
   return await decrypt(session);
 }
 
 export async function updateSession(request: NextRequest) {
-  const session = request.cookies.get("custom_session")?.value;
+  const session = request.cookies.get("customer_session")?.value;
   if (!session) return;
 
   // Refresh the session so it doesn't expire
@@ -68,7 +71,7 @@ export async function updateSession(request: NextRequest) {
   parsed.expires = new Date(Date.now() + 10 * 1000);
   const res = NextResponse.next();
   res.cookies.set({
-    name: "custom_session",
+    name: "customer_session",
     value: await encrypt(parsed),
     httpOnly: true,
     expires: parsed.expires,

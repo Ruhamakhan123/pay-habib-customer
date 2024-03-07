@@ -1,25 +1,72 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import SignImage from "@/public/icons8-wallet-50.png";
-import Chart from "@/public/chart.jpg";
+import Chart from "@/public/undraw_personal_info_re_ur1n.svg";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { signUpSchema } from "@/lib/validator";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { createCustomer } from "@/actions/action";
+import { toast } from "sonner";
 
 const SignIn = () => {
+  const initialValues = {
+    username: "",
+    accountNumber: "",
+    email: "",
+    password: "",
+    bankName: "",
+    phoneNumber: "",
+  };
+
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: initialValues,
+  });
+
+  async function onSubmit(data: z.infer<typeof signUpSchema>) {
+    console.log(data);
+
+    try {
+      const result = await createCustomer(data);
+      if (result.success) {
+        toast.success("Account Created");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div className="  text-gray-900 flex justify-center">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-[#FAFAFA] shadow sm:rounded-lg flex justify-center flex-1">
         <div className="flex flex-col items-center justify-center lg:w-[300px] xl:w-[600px] p-6 sm:[200px]">
-          <div className="flex items-center justify-center h-[50px] w-[250px] gap-5">
+          <div className="flex items-center justify-center  gap-5">
             <Image src={SignImage} alt="sign" className="" />
             <div className="flex w-full ">
-              <h1 className="font-semibold ">Customer Account</h1>
+              <h1 className="font-bold">Customer Portal</h1>
             </div>
           </div>
           <div className="mt-4 flex flex-col items-">
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-                <h1 className="text-3xl font-bold">Create</h1>
+                <h1 className="text-3xl font-bold">Sign Up</h1>
                 <div className="flex pt-3 space-x-2">
-                  <h1 className="text-3xl font-bold text-cyan-400">
+                  <h1 className="text-3xl font-bold text-cyan-700">
                     Customer Portal
                   </h1>
                   <div className="flex">
@@ -28,59 +75,133 @@ const SignIn = () => {
                   </div>
                 </div>
               </div>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="flex flex-col gap-2 mx-auto max-w-xs mt-5 "
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Username *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Username"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="accountNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">
+                          Account Number *
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Account Number"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Email *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Email"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Password *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Password"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="bankName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Bank Name *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Bank Name"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">
+                          Phone Number *
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Phone Number"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className="flex flex-col gap-2 mx-auto max-w-xs mt-5 ">
-                <div className="flex flex-col space-y-4">
-                  <h1>Username</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                    type="text"
-                    placeholder="Enter your username"
-                  />
-                </div>
-                <div className="flex flex-col ">
-                  <h1>Account Number</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="text"
-                    placeholder="Enter your account number"
-                  />
-                </div>
-                <div className=" flex flex-col">
-                  <h1>Email Address</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="email"
-                    placeholder="abc@gmail.com"
-                  />
-                </div>
-                <div className=" flex flex-col">
-                  <h1>Phone Number</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="tel"
-                    placeholder="0123456789"
-                  />
-                </div>
-                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                  <span className="ml-">Sign In</span>
-                </button>
-                <p className="mt-6 text-sm text-gray-600 text-center">
-                  Already have account?
-                  <a
-                    href="/login"
-                    className="border-b border-cyan-400 border-dotted text-cyan-400"
+                  <Button
+                    type="submit"
+                    className="mt-2 tracking-wide font-semibold bg-cyan-700 text-white w-full py-4 rounded-md hover:bg-cyan-700 hover:opacity-80 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
-                    Login
-                  </a>
-                </p>
-              </div>
+                    Sign up
+                  </Button>
+                </form>
+              </Form>
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-cyan-400 text-center hidden lg:flex">
+        <div className="flex-1 bg-cyan-200 rounded-r-lg text-center hidden lg:flex">
           <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
-            <Image src={Chart} alt="s" />
+            <Image src={Chart} alt="chart" />
           </div>
         </div>
       </div>

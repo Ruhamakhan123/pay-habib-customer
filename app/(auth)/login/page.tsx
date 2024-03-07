@@ -1,15 +1,64 @@
+"use client";
 import SignImage from "@/public/icons8-wallet-50.png";
-import Chart from "@/public/chart.jpg";
+import Chart from "@/public/undraw_online_transactions_-02-ka.svg";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { toast } from "sonner";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { loginFormSchema } from "@/lib/validator";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { login } from "@/lib/helper";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 const Login = () => {
+  const router = useRouter();
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: initialValues,
+  });
+
+  async function onSubmit(data: z.infer<typeof loginFormSchema>) {
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    const result = await login(formData);
+    if (result) {
+      router.replace("/");
+    }
+    if (result) {
+      toast.success("Logged in successfully");
+    } else {
+      toast.error("Something went wrong");
+    }
+
+    console.log(result);
+  }
+
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div className="  text-gray-900 flex  justify-center">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-[#FAFAFA] shadow sm:rounded-lg flex justify-center flex-1">
         <div className="flex flex-col items-center justify-center lg:w-[300px] xl:w-[600px] p-6 sm:[200px]">
-          <div className="flex items-center justify-center h-[50px] w-[250px] gap-5">
+          <div className="flex items-center justify-center  gap-5">
             <Image src={SignImage} alt="sign" className="" />
             <div className="flex w-full ">
-              <h1 className="font-semibold ">Customer Account</h1>
+              <h1 className="font-bold">Customer Portal</h1>
             </div>
           </div>
           <div className="mt-4 flex flex-col items-">
@@ -17,7 +66,7 @@ const Login = () => {
               <div className="flex flex-col items-center">
                 <h1 className="text-3xl font-bold">Login</h1>
                 <div className="flex pt-3 space-x-2">
-                  <h1 className="text-3xl font-bold text-cyan-400">
+                  <h1 className="text-3xl font-bold text-cyan-500">
                     Customer Portal
                   </h1>
                   <div className="flex">
@@ -26,42 +75,59 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="flex flex-col gap-2 mx-auto max-w-xs mt-5 ">
-                <div className="flex flex-col space-y-4">
-                  <h1>Username</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                    type="text"
-                    placeholder="Enter your username"
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="flex flex-col gap-2 mx-auto max-w-xs mt-5 "
+                >
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Email *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Email"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="flex flex-col ">
-                  <h1>Password</h1>
-                  <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    type="password"
-                    placeholder="Password"
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-bold">Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Password"
+                            {...field}
+                            className="max-w-sm "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                  <span className="ml-">Log In</span>
-                </button>
-                <p className="mt-6 text-sm text-gray-600 text-center">
-                  Already have account?
-                  <a
-                    href="/sign-in"
-                    className="border-b border-cyan-400 border-dotted text-cyan-400"
+                  <Button
+                    type="submit"
+                    className="mt-2 tracking-wide font-semibold bg-cyan-500 text-white w-full py-4 rounded-md hover:bg-cyan-700 hover:opacity-80 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
-                    Sign up
-                  </a>
-                </p>
-              </div>
+                    Sign in
+                  </Button>
+                </form>
+              </Form>
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-cyan-400 text-center hidden lg:flex rounded-r-lg">
+        <div className="flex-1 bg-cyan-200 rounded-r-lg text-center hidden lg:flex">
           <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
             <Image src={Chart} alt="chart" />
           </div>
