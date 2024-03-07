@@ -27,6 +27,7 @@ type Payment = {
   customerId: number;
   merchantId: number;
   paymentStatus: string;
+  qrcode: string;
   created_at: Date;
   updated_at: Date;
 };
@@ -74,6 +75,7 @@ const TableComponent = ({ payments }: Props) => {
           <TableHead className="font-bold">TIME</TableHead>
           <TableHead className="w-[100px] font-bold">DATE</TableHead>
           <TableHead className="font-bold">AMOUNT</TableHead>
+          <TableHead className="font-bold">QR</TableHead>
           <TableHead className="font-bold">ACTIONS</TableHead>
         </TableRow>
       </TableHeader>
@@ -121,6 +123,14 @@ const TableComponent = ({ payments }: Props) => {
                 </TableCell>
                 <TableCell className="font-bold">
                   ${item.paymentAmount}
+                </TableCell>
+                <TableCell>
+                  <Image
+                    src={item.qrcode}
+                    width={24}
+                    height={24}
+                    alt="qr-code"
+                  />
                 </TableCell>
                 <TableCell className="flex gap-x-3">
                   <Button

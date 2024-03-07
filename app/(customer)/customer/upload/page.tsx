@@ -6,7 +6,7 @@ const UploadPage = () => {
   return (
     <div className="flex flex-col items-start justify-start mt-10 ml-10 w-full">
       <h1 className="text-4xl font-bold">QR Scan</h1>
-      <div className="pt-10 ">
+      <div className="pt-10 w-full">
         <UploadDropzone
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
