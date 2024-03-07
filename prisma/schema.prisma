@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id               Int                @id @default(autoincrement())
+  username         String
+  bankName         String
+  accountNumber    String
+  email            String             @unique
+  phoneNumber      String
+  password         String
+  merchantCustomer MerchantCustomer[]
+  payment          Payment[]
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+}
+
+model Merchant {
+  id               Int                @id @default(autoincrement())
+  username         String
+  bankName         String
+  accountNumber    String
+  email            String
+  phoneNumber      String
+  password         String
+  merchantCustomer MerchantCustomer[]
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+}
+
+model MerchantCustomer {
+  id         Int      @id @default(autoincrement())
+  merchantId Int
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Payment {
+  id                    Int      @id @default(autoincrement())
+  customerName          String
+  customerEmail         String
+  paymentAmount         String
+  merchantAccountNumber String
+  customerAccountNumber String
+  paymentPurpose        String
+  customerBankName      String
+  cusomerId             Int
+  paymentStatus         String   @default("pending")
+  customer              Customer @relation(fields: [cusomerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+}

@@ -10,33 +10,33 @@ const Sidebar = () => {
     <div className="flex flex-col gap-5 min-h-screen">
       <div
         className={`flex gap-2 ${
-          pathname === "/merchant/payments"
+          pathname === "/customer/payment"
             ? "bg-cyan-400 text-white"
             : "hover:bg-cyan-700 hover:text-white"
         } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <DollarSign />
-        <Link href={"/merchant/payments"}>Payments</Link>
+        <Link href={"/customer/payment"}>Payments</Link>
       </div>
       <div
         className={`flex gap-2 ${
-          pathname === "/merchant/customers"
+          pathname === "/customer/instant-payment"
             ? "bg-cyan-400 text-white"
             : "hover:bg-cyan-700 hover:text-white"
         } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <CurrencyIcon />
-        <Link href={"/merchant/customers"}>Instant Payment</Link>
+        <Link href={"/customer/instant-payment"}>Instant Payment</Link>
       </div>
       <div
         className={`flex gap-2 ${
-          pathname === "/merchant/request"
+          pathname === "/customer/upload"
             ? "bg-cyan-400 text-white"
             : "hover:bg-cyan-700 hover:text-white"
         } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <QrCodeIcon />
-        <Link href={"/merchant/request"}>QR Scan</Link>
+        <Link href={"/customer/upload"}>QR Scan</Link>
       </div>
     </div>
   );
