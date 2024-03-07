@@ -4,7 +4,7 @@ import iconwallet from "@/public/icons8-wallet-50.png";
 import Image from "next/image";
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between container">
       <div className="flex items-center justify-center gap-2">
         <Image src={iconwallet} alt="wallet" />
         <h1 className="font-extrabold">Customer Portal</h1>

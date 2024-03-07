@@ -3,7 +3,7 @@ import Chart from "@/public/chart.jpg";
 import Image from "next/image";
 const Login = () => {
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    <div className="min-h-screen bg-[#FAFAFA] text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="flex flex-col items-center justify-center lg:w-[300px] xl:w-[600px] p-6 sm:[200px]">
           <div className="flex items-center justify-center h-[50px] w-[250px] gap-5">
@@ -45,7 +45,7 @@ const Login = () => {
                   />
                 </div>
 
-                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white-500 w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                   <span className="ml-">Log In</span>
                 </button>
                 <p className="mt-6 text-sm text-gray-600 text-center">
@@ -61,7 +61,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-cyan-400 text-center hidden lg:flex">
+        <div className="flex-1 bg-cyan-400 text-center hidden lg:flex rounded-r-lg">
           <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
             <Image src={Chart} alt="chart" />
           </div>

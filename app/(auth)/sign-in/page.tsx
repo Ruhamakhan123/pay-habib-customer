@@ -62,7 +62,7 @@ const SignIn = () => {
                     placeholder="0123456789"
                   />
                 </div>
-                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white-500 w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                <button className="mt-2 tracking-wide font-semibold bg-cyan-400 text-white w-full py-4 rounded-lg hover:bg-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                   <span className="ml-">Sign In</span>
                 </button>
                 <p className="mt-6 text-sm text-gray-600 text-center">

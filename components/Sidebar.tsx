@@ -12,8 +12,8 @@ const Sidebar = () => {
         className={`flex gap-2 ${
           pathname === "/customer/payment"
             ? "bg-cyan-400 text-white"
-            : "hover:bg-cyan-700 hover:text-white"
-        } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
+            : "hover:bg-cyan-400 hover:text-white"
+        } font-bold hover:bg-cyan-400 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <DollarSign />
         <Link href={"/customer/payment"}>Payments</Link>
@@ -22,8 +22,8 @@ const Sidebar = () => {
         className={`flex gap-2 ${
           pathname === "/customer/instant-payment"
             ? "bg-cyan-400 text-white"
-            : "hover:bg-cyan-700 hover:text-white"
-        } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
+            : "hover:bg-cyan-400 hover:text-white"
+        } font-bold hover:bg-cyan-400 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <CurrencyIcon />
         <Link href={"/customer/instant-payment"}>Instant Payment</Link>
@@ -32,8 +32,8 @@ const Sidebar = () => {
         className={`flex gap-2 ${
           pathname === "/customer/upload"
             ? "bg-cyan-400 text-white"
-            : "hover:bg-cyan-700 hover:text-white"
-        } font-bold hover:bg-cyan-600 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
+            : "hover:bg-cyan-400 hover:text-white"
+        } font-bold hover:bg-cyan-400 hover:text-white px-5 py-5 rounded-md transition-all duration-300`}
       >
         <QrCodeIcon />
         <Link href={"/customer/upload"}>QR Scan</Link>
